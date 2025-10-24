@@ -1,0 +1,108 @@
+<template>
+    <div
+        class="slds-text-body_regular slds-scrollable_none lightning-copilot-shell slds-grid slds-grid_vertical slds-grid_vertical-stretch">
+
+        <!-- Not signed in -->
+        <template if:false={signedIn}>
+            <div class="auth-panel slds-var-p-around_medium slds-grid slds-grid_vertical slds-grid_align-center slds-grow">
+                <template if:true={authBusy}>
+                    <lightning-spinner size="medium" alternative-text="Checking sign-in"></lightning-spinner>
+                    <template if:true={statusMessage}>
+                        <p class="auth-text">{statusMessage}</p>
+                    </template>
+                </template>
+                <template if:false={authBusy}>
+                    <template if:true={statusMessage}>
+                        <p class="auth-text">{statusMessage}</p>
+                    </template>
+                    <template if:true={showLoginButton}>
+                        <lightning-button variant="brand" label="Sign in to Lightning Copilot"
+                            onclick={handleLogin}></lightning-button>
+                    </template>
+                </template>
+            </div>
+        </template>
+
+        <!-- Signed in -->
+        <template if:true={signedIn}>
+            <!-- User bar with restart button -->
+            <div class="user-bar slds-var-p-around_x-small slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                <span class="slds-line-height_reset slds-media_center slds-pill user-chip">
+                    <span class="slds-pill__icon">
+                        <lightning-icon icon-name="utility:user" size="x-small"></lightning-icon>
+                    </span>
+                    <span class="slds-pill__label slds-truncate" title={accountLabel}>{accountLabel}</span>
+                </span>
+                <lightning-button-icon class="restart-btn" icon-name="utility:refresh" alternative-text="Restart conversation" aria-label="Restart conversation"
+                    title="Restart conversation" variant="border" onclick={handleRestart}></lightning-button-icon>
+            </div>
+
+            <!-- Minimal native chat UI (Direct Line REST) -->
+            <div class="chat-container">
+                <div class="chat-log" data-id="log" role="log" aria-live="polite">
+                    <template for:each={transcript} for:item="message">
+                        <div key={message.key} class={message.lineClass} data-message-id={message.id}>
+                            <div class={message.bubbleClass}>
+                                <template if:true={message.text}>
+                                    <div class="chat-text">{message.text}</div>
+                                </template>
+                                <template for:each={message.attachments} for:item="attachment">
+                                    <template if:true={attachment.isAdaptiveCard}>
+                                        <div key={attachment.id} class="adaptive-card-host" data-card-id={attachment.id} lwc:dom="manual"></div>
+                                    </template>
+                                    <template if:false={attachment.isAdaptiveCard}>
+                                        <div key={attachment.id} class="chat-attachment">
+                                            <template if:true={attachment.contentUrl}>
+                                                <a href={attachment.contentUrl} target="_blank" rel="noopener noreferrer">
+                                                    {attachment.name}
+                                                </a>
+                                            </template>
+                                            <template if:false={attachment.contentUrl}>
+                                                <pre>{attachment.content}</pre>
+                                            </template>
+                                        </div>
+                                    </template>
+                                </template>
+                                <template for:each={message.actions} for:item="action">
+                                    <button key={action.id} class="chat-action slds-button slds-button_neutral" type="button"
+                                        data-message-id={message.id} data-action-id={action.id} onclick={handleTranscriptAction}>
+                                        {action.title}
+                                    </button>
+                                </template>
+                                <template if:true={message.isPending}>
+                                    <span class="chat-status chat-status_pending">Sending…</span>
+                                </template>
+                                <template if:true={message.isFailed}>
+                                    <span class="chat-status chat-status_error">Not sent</span>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                    <template if:true={isAgentTyping}>
+                        <div class="chat-line agent typing-line" aria-live="assertive">
+                            <div class="chat-bubble agent typing-bubble">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <div class="chat-composer slds-grid slds-gutters_x-small">
+                    <lightning-input class="composer-input slds-col" data-id="msg" variant="label-hidden"
+                        placeholder="Type a message and press Enter" onkeydown={onKeydown}
+                        disabled={composerDisabled}></lightning-input>
+                    <lightning-button-icon class="chat-send-button" icon-name="utility:send" alternative-text="Send message" aria-label="Send message"
+                        title="Send message" variant="brand" onclick={send} disabled={composerDisabled}></lightning-button-icon>
+                </div>
+            </div>
+        </template>
+
+        <!-- Error -->
+        <template if:true={error}>
+            <div class="error-box slds-var-p-around_small">
+                <c-inline-error message={error}></c-inline-error>
+            </div>
+        </template>
+    </div>
+</template>

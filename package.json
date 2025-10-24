@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "@microsoft/agents-copilotstudio-client": "^1.0.15",
+    "adaptivecards": "^3.0.5",
+    "botframework-webchat": "^4.18.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^5.1.1",
+    "@rollup/plugin-commonjs": "^25.0.8",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "esbuild": "^0.25.11",
+    "rollup": "^4.21.0"
+  },
+  "scripts": {
+    "build:copilot": "esbuild build-src/static/wrappers/copilotstudio-global.js --bundle --minify --format=iife --target=es2019 --outfile=static-resources-build/copilotStudioClient.js",
+    "build:webchat": "esbuild build-src/static/webchat-global-entry.js --bundle --platform=browser --minify --format=iife --target=es2019 --outfile=static-resources-build/webchat.js"
+  }
+}

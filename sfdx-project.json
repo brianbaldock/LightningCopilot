@@ -1,0 +1,11 @@
+{
+    "packageDirectories": [
+        {
+            "path": "lightningCopilot",
+            "default": true
+        }
+    ],
+    "namespace": "",
+    "sourceApiVersion": "61.0",
+    "packageAliases": {}
+}

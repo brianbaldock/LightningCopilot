@@ -1,0 +1,209 @@
+.lightning-copilot-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    height: 100%;
+}
+
+.auth-panel {
+    gap: 0.75rem;
+    text-align: center;
+}
+
+.auth-text {
+    color: #3e3e3c;
+    font-size: 0.95rem;
+}
+
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-height: 18rem;
+    width: 100%;
+}
+
+.chat-log {
+    flex: 1;
+    overflow-y: auto;
+    background: #ffffff;
+    border-radius: 0.75rem;
+    border: 1px solid #d8dde6;
+    padding: 0.75rem 0.75rem 1.25rem; /* extra bottom so composer doesn't overlay */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.chat-line {
+    display: flex;
+    width: 100%;
+}
+
+.chat-line.user {
+    justify-content: flex-end;
+}
+
+.chat-line.agent {
+    justify-content: flex-start;
+}
+
+.chat-bubble {
+    max-width: 85%;
+    padding: 0.55rem 0.85rem;
+    border-radius: 1.1rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    word-break: break-word;
+    border: 1px solid transparent;
+}
+
+.chat-bubble.user {
+    background: #0176d3;
+    color: #ffffff;
+    border-bottom-right-radius: 0.35rem;
+}
+
+.chat-bubble.agent {
+    background: #f6f7f9;
+    color: #1b1b19;
+    border-bottom-left-radius: 0.35rem;
+}
+
+.chat-bubble.sent,
+.chat-bubble.delivered {
+    opacity: 1;
+}
+
+.chat-bubble.pending {
+    opacity: 0.85;
+}
+
+.chat-bubble.failed {
+    border-color: #ba0517;
+}
+
+.chat-text {
+    white-space: pre-wrap;
+}
+
+.chat-action {
+    align-self: flex-start;
+    margin-top: 0.25rem;
+}
+
+.chat-action + .chat-action {
+    margin-left: 0.25rem;
+}
+
+.chat-status {
+    font-size: 0.7rem;
+    opacity: 0.75;
+    align-self: flex-end;
+}
+
+.chat-status_pending {
+    color: #706e6b;
+}
+
+.chat-status_error {
+    color: #ba0517;
+}
+
+.chat-attachment {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 0.4rem;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.85rem;
+    word-break: break-word;
+}
+
+.chat-bubble.agent .chat-attachment {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.chat-attachment a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.chat-attachment pre {
+    margin: 0;
+    font-family: var(--slds-font-family-monospace, monospace);
+    white-space: pre-wrap;
+}
+
+.adaptive-card-host {
+    background: #ffffff;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.chat-composer {
+    align-items: stretch;
+    gap: 0.5rem;
+    padding: 0.5rem 0.25rem 0.25rem;
+    border-top: 1px solid #d8dde6;
+}
+
+.chat-composer .composer-input {
+    --slds-c-input-spacing-block-end: 0;
+    --slds-c-input-spacing-block-start: 0;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: calc(100% - 3rem);
+}
+
+.chat-composer .chat-send-button {
+    flex: 0 0 2.75rem;
+}
+
+.chat-send-button {
+    align-self: flex-end;
+    --slds-c-icon-color-foreground-default: #ffffff;
+    --slds-c-icon-color-foreground: #ffffff;
+}
+
+/* Typing indicator now rendered as a bubble inside .chat-log */
+.typing-line .chat-bubble.typing-bubble {
+    background: #f0f8ff;
+    color: #0176d3;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.4rem 0.75rem;
+}
+
+.typing-bubble .dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    background: #0176d3;
+    border-radius: 50%;
+    opacity: 0.35;
+    animation: dotPulse 1.2s infinite ease-in-out;
+}
+
+.typing-bubble .dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-bubble .dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* Restart button subtle */
+.user-bar .restart-btn {
+    --slds-c-icon-color-foreground-default: #0176d3;
+    --slds-c-icon-color-foreground: #0176d3;
+}
+
+@keyframes dotPulse {
+    0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: 0.4;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
