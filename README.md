@@ -113,7 +113,7 @@ Keep naming internally consistent to avoid broken imports.
 
 ## 8. Authentication flow
 
-1. User clicks sign in.
+1. User clicks sign in (if required)
 2. MSAL initializes with Entra ID app registration.
 3. Token acquisition (redirect or popup).
 4. Token passed (or exchanged) for Direct Line conversation token.
