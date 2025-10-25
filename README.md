@@ -1,8 +1,20 @@
 # LightningCopilot
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
+[![Contributors](https://img.shields.io/badge/contributors-11-green)](https://github.com/brianbaldock/LightningCopilot/contributors)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/brianbaldock/LightningCopilot/pulls)
+
+![GitHub Watchers](https://img.shields.io/github/watchers/microsoft/fasttrack.svg?style=social)
+![GitHub Forks](https://img.shields.io/github/forks/microsoft/fasttrack.svg?style=social)
+![GitHub Stars](https://img.shields.io/github/stars/microsoft/fasttrack.svg?style=social)
+
 LightningCopilot integrates Microsoft Copilot Studio agents into Salesforce via Lightning Web Components (LWC) with Entra ID (Azure AD) authentication, MSAL-based SSO, and Adaptive Cards rendering.
 
 > This repository supplies an LWC host shell plus build assets for embedding a Copilot Studio web client inside Salesforce.
+
+[!IMPORTANT]
+This README provides a quick overview.  
+For deeper, step-by-step guidance, visit my blog at [brianbaldock.net](https://blog.brianbaldock.net).
 
 ## Table of contents
 
@@ -173,7 +185,6 @@ Install / prepare:
   - SPA redirect URI(s) matching Salesforce domain(s).
   - Expose needed API permissions (if calling downstream resources).
   - Optional: logout URL.
-- Direct Line secret or token generation mechanism (do not hardcode secrets in source).
 
 ## 5. Quick start
 
@@ -311,7 +322,7 @@ Logging prefix (update if renamed): `[LightningCopilotAuth]`.
 
 ## 15. License
 
-Add license file if absent (e.g., MIT). Clarify any Microsoft service usage terms separately.
+Add license file if absent (e.g., MIT).
 
 ## Notes
 
