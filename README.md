@@ -6,7 +6,6 @@
 [![Pull Requests](https://img.shields.io/github/issues-pr/brianbaldock/LightningCopilot?style=flat-square)](https://github.com/brianbaldock/LightningCopilot/pulls)
 [![Last Commit](https://img.shields.io/github/last-commit/brianbaldock/LightningCopilot?style=flat-square)](https://github.com/brianbaldock/LightningCopilot/commits/main)
 [![Repo Size](https://img.shields.io/github/repo-size/brianbaldock/LightningCopilot?style=flat-square)](https://github.com/brianbaldock/LightningCopilot)
-[![Lines of Code](https://img.shields.io/tokei/lines/github/brianbaldock/LightningCopilot?style=flat-square)](https://github.com/brianbaldock/LightningCopilot)
 
 <!-- Tech Stack -->
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES2022-F7DF1E?logo=javascript&logoColor=black&style=flat-square)](https://developer.mozilla.org/docs/Web/JavaScript)
@@ -26,9 +25,10 @@ LightningCopilot integrates Microsoft Copilot Studio agents into Salesforce via 
 
 > This repository supplies an LWC host shell plus build assets for embedding a Copilot Studio web client inside Salesforce.
 
-[!IMPORTANT]
-This README provides a quick overview.  
-For deeper, step-by-step guidance, visit my blog at [brianbaldock.net](https://blog.brianbaldock.net).
+## [!IMPORTANT]
+
+> This README provides a quick overview.  
+> For deeper, step-by-step guidance, visit my blog at [brianbaldock.net](https://blog.brianbaldock.net).
 
 ## Table of contents
 
