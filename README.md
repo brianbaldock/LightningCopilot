@@ -73,6 +73,94 @@ High-level layers:
 Data flow (simplified):
 User -> LWC sign-in -> MSAL acquires token -> Direct Line starts -> Messages exchanged -> Adaptive Cards rendered.
 
+Data flow (expanded):
+
+``` mermaid
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant LWC as LightningCopilotAuth (LWC)
+    participant MSAL as MSAL (Browser)
+    participant AAD as Azure AD (Entra ID)
+    participant DL as Copilot Studio / Direct Line
+
+    Note over LWC: Component loads<br/>scripts -> validate embed URL
+    LWC->>MSAL: initMsal()
+    MSAL-->>LWC: handleRedirectPromise()
+
+    alt Redirect result has account & token
+        MSAL-->>LWC: AuthenticationResult (accessToken)
+        LWC->>LWC: onSignedIn()
+    else No redirect token
+        LWC->>MSAL: (wire) get Salesforce user email (loginHint)
+        alt Have email & not yet attempted
+            LWC->>MSAL: ssoSilent({loginHint, scopes})
+            MSAL->>AAD: /authorize (silent iframe)
+            AAD-->>MSAL: Silent token or error
+            alt Silent success
+                MSAL-->>LWC: AuthenticationResult
+                LWC->>LWC: onSignedIn()
+            else Silent fails
+                LWC->>LWC: startAuthFlow()
+            end
+        else No email yet
+            LWC->>LWC: startAuthFlow()
+        end
+
+        LWC->>MSAL: acquireTokenSilent({scopes, account})
+        MSAL->>AAD: /authorize (silent)
+        alt Silent success
+            MSAL-->>LWC: AuthenticationResult
+            LWC->>LWC: onSignedIn()
+        else Silent fails
+            LWC->>U: Show "Sign in" button
+            U->>LWC: Click Sign In
+            LWC->>MSAL: loginRedirect({scopes, loginHint})
+            MSAL->>AAD: /authorize (interactive + PKCE)
+            AAD-->>MSAL: Redirect with code
+            MSAL->>AAD: /token (exchange + PKCE verifier)
+            AAD-->>MSAL: Access Token
+            MSAL-->>LWC: AuthenticationResult
+            LWC->>LWC: onSignedIn()
+        end
+    end
+
+    Note over LWC: Store accessToken + expiry<br/>schedule silent refresh (~1 min before expiry)
+
+    LWC->>DL: createConnection(environmentId, botId, accessToken)
+    alt Streaming available
+        DL-->>LWC: Streaming connection (activity$)
+        LWC->>DL: (postActivity for user messages)
+    else REST fallback
+        DL-->>LWC: { dlToken, domain }
+        LWC->>DL: POST /v3/directline/conversations
+        DL-->>LWC: conversationId
+        loop Poll
+            LWC->>DL: GET /activities?watermark
+            DL-->>LWC: Activities (messages / typing)
+        end
+        LWC->>DL: POST /activities (user messages)
+    end
+
+    loop Before expiry
+        LWC->>MSAL: acquireTokenSilent({scopes, account})
+        MSAL->>AAD: /authorize (silent)
+        AAD-->>MSAL: New accessToken
+        MSAL-->>LWC: Updated token (refresh)
+        Note over LWC: Optionally could renew DL if needed (currently retained)
+    end
+
+    U->>LWC: Logout
+    alt Top window
+        LWC->>MSAL: logoutRedirect()
+        MSAL->>AAD: /logout
+    else In iframe
+        LWC->>MSAL: logoutPopup()
+        MSAL->>AAD: /logout (popup)
+    end
+    LWC->>LWC: clearSession()
+```
+
 ## 4. Prerequisites
 
 Install / prepare:
