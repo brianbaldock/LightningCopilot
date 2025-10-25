@@ -25,10 +25,10 @@ LightningCopilot integrates Microsoft Copilot Studio agents into Salesforce via 
 
 > This repository supplies an LWC host shell plus build assets for embedding a Copilot Studio web client inside Salesforce.
 
-## [!IMPORTANT]
+## !IMPORTANT
 
-> This README provides a quick overview.  
-> For deeper, step-by-step guidance, visit my blog at [brianbaldock.net](https://blog.brianbaldock.net).
+This README provides a quick overview.  
+For deeper, step-by-step guidance, visit my blog at [brianbaldock.net](https://blog.brianbaldock.net).
 
 ## Table of contents
 
@@ -46,7 +46,6 @@ LightningCopilot integrates Microsoft Copilot Studio agents into Salesforce via 
 12. Troubleshooting
 13. Security considerations
 14. Contributing
-15. License
 
 ## 1. Overview
 
@@ -333,12 +332,3 @@ Logging prefix (update if renamed): `[LightningCopilotAuth]`.
 2. Branch: `feat/<topic>` or `fix/<issue>`.
 3. Include concise commit messages.
 4. Open pull request with summary and test steps.
-
-## 15. License
-
-Add license file if absent (e.g., MIT).
-
-## Notes
-
-- Update this README after significant architectural or naming changes.
-- Keep configuration values externalized where possible.
