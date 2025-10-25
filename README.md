@@ -1,12 +1,26 @@
 # LightningCopilot
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
-[![Contributors](https://img.shields.io/badge/contributors-11-green)](https://github.com/brianbaldock/LightningCopilot/contributors)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/brianbaldock/LightningCopilot/pulls)
+<!-- Repo Meta -->
+[![License](https://img.shields.io/github/license/brianbaldock/LightningCopilot?style=flat-square)](LICENSE)
+[![Issues](https://img.shields.io/github/issues/brianbaldock/LightningCopilot?style=flat-square)](https://github.com/brianbaldock/LightningCopilot/issues)
+[![Pull Requests](https://img.shields.io/github/issues-pr/brianbaldock/LightningCopilot?style=flat-square)](https://github.com/brianbaldock/LightningCopilot/pulls)
+[![Last Commit](https://img.shields.io/github/last-commit/brianbaldock/LightningCopilot?style=flat-square)](https://github.com/brianbaldock/LightningCopilot/commits/main)
+[![Repo Size](https://img.shields.io/github/repo-size/brianbaldock/LightningCopilot?style=flat-square)](https://github.com/brianbaldock/LightningCopilot)
+[![Lines of Code](https://img.shields.io/tokei/lines/github/brianbaldock/LightningCopilot?style=flat-square)](https://github.com/brianbaldock/LightningCopilot)
 
-![GitHub Watchers](https://img.shields.io/github/watchers/microsoft/fasttrack.svg?style=social)
-![GitHub Forks](https://img.shields.io/github/forks/microsoft/fasttrack.svg?style=social)
-![GitHub Stars](https://img.shields.io/github/stars/microsoft/fasttrack.svg?style=social)
+<!-- Tech Stack -->
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES2022-F7DF1E?logo=javascript&logoColor=black&style=flat-square)](https://developer.mozilla.org/docs/Web/JavaScript)
+[![Node.js](https://img.shields.io/badge/Node.js-20+-339933?logo=node.js&logoColor=white&style=flat-square)](https://nodejs.org/)
+[![Rollup](https://img.shields.io/badge/Rollup-Bundler-EC4A3F?logo=rollup.js&logoColor=white&style=flat-square)](https://rollupjs.org/)
+[![Lightning Web Components](https://img.shields.io/badge/Salesforce-LWC-00A1E0?logo=salesforce&logoColor=white&style=flat-square)](https://developer.salesforce.com/docs/component-library/documentation/en/lwc)
+[![Salesforce DX](https://img.shields.io/badge/Salesforce-SDX-00A1E0?logo=salesforce&logoColor=white&style=flat-square)](https://developer.salesforce.com/tools/sfdxcli)
+
+<!-- Microsoft / Conversational -->
+[![Microsoft Copilot Studio](https://img.shields.io/badge/Microsoft-Copilot%20Studio-5C2D91?logo=microsoft&logoColor=white&style=flat-square)](https://learn.microsoft.com/microsoft-copilot-studio/)
+[![Bot Framework Direct Line](https://img.shields.io/badge/Bot%20Framework-Direct%20Line-0A74DA?logo=microsoft&logoColor=white&style=flat-square)](https://learn.microsoft.com/azure/bot-service/rest-api/bot-framework-rest-direct-line-3-0-concepts)
+[![MSAL Browser](https://img.shields.io/badge/MSAL-Browser-0078D4?logo=azure&logoColor=white&style=flat-square)](https://learn.microsoft.com/azure/active-directory/develop/msal-overview)
+[![Azure AD](https://img.shields.io/badge/Azure%20AD-Entra%20ID-0078D4?logo=microsoftazure&logoColor=white&style=flat-square)](https://learn.microsoft.com/azure/active-directory/)
+[![Adaptive Cards](https://img.shields.io/badge/Adaptive%20Cards-v3-0078D4?logo=microsoft&logoColor=white&style=flat-square)](https://adaptivecards.io/)
 
 LightningCopilot integrates Microsoft Copilot Studio agents into Salesforce via Lightning Web Components (LWC) with Entra ID (Azure AD) authentication, MSAL-based SSO, and Adaptive Cards rendering.
 
