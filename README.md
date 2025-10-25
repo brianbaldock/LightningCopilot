@@ -32,6 +32,26 @@ LightningCopilot provides:
 - Inline error surfacing.
 - Adaptive Cards support inside Salesforce UI.
 
+```mermaid
+flowchart TD
+ subgraph Salesforce["Salesforce"]
+        SR["Static Resources: msalBrowser, copilotStudioClient, adaptiveCards"]
+        A["LWC: Lightning Copilot"]
+        MSAL["MSAL SPA: clientId and redirect URIs"]
+  end
+    A -- loadScript --> SR
+    A -- MSAL acquireToken --> MSAL
+    MSAL -- OIDC and PKCE --> ENTRA["Microsoft Entra ID"]
+    A -- Agent Config --> COPILOT["Copilot Studio Agent<br>copilotstudio.microsoft.com"]
+    COPILOT -- Config and Policies --> BAP["Power Platform API: api.bap.microsoft.com"]
+    COPILOT -- Conversation and token --> DLINE["DirectLine API:<br>directline.botframework.com/token"]
+    ENTRA -.-> COPILOT
+     ENTRA:::svc
+     BAP:::svc
+     DLINE:::svc
+    classDef svc fill:#f6f6f6,stroke:#999,color:#333
+```
+
 ## 2. Features
 
 - Entra ID (Azure AD / Microsoft Entra) sign-in and sign-out.
