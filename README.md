@@ -18,10 +18,10 @@
 [![Microsoft Copilot Studio](https://img.shields.io/badge/Microsoft-Copilot%20Studio-5C2D91?logo=microsoft&logoColor=white&style=flat-square)](https://learn.microsoft.com/microsoft-copilot-studio/)
 [![Bot Framework Direct Line](https://img.shields.io/badge/Bot%20Framework-Direct%20Line-0A74DA?logo=microsoft&logoColor=white&style=flat-square)](https://learn.microsoft.com/azure/bot-service/rest-api/bot-framework-rest-direct-line-3-0-concepts)
 [![MSAL Browser](https://img.shields.io/badge/MSAL-Browser-0078D4?logo=azure&logoColor=white&style=flat-square)](https://learn.microsoft.com/azure/active-directory/develop/msal-overview)
-[![Azure AD](https://img.shields.io/badge/Azure%20AD-Entra%20ID-0078D4?logo=microsoftazure&logoColor=white&style=flat-square)](https://learn.microsoft.com/azure/active-directory/)
+[![Entra ID](https://img.shields.io/badge/Azure%20AD-Entra%20ID-0078D4?logo=microsoftazure&logoColor=white&style=flat-square)](https://learn.microsoft.com/azure/active-directory/)
 [![Adaptive Cards](https://img.shields.io/badge/Adaptive%20Cards-v3-0078D4?logo=microsoft&logoColor=white&style=flat-square)](https://adaptivecards.io/)
 
-LightningCopilot integrates Microsoft Copilot Studio agents into Salesforce via Lightning Web Components (LWC) with Entra ID (Azure AD) authentication, MSAL-based SSO, and Adaptive Cards rendering.
+LightningCopilot integrates Microsoft Copilot Studio agents into Salesforce via Lightning Web Components (LWC) with Entra ID authentication, MSAL-based SSO, and Adaptive Cards rendering.
 
 > This repository supplies an LWC host shell plus build assets for embedding a Copilot Studio web client inside Salesforce.
 
@@ -79,7 +79,7 @@ flowchart TD
 
 ## 2. Features
 
-- Entra ID (Azure AD / Microsoft Entra) sign-in and sign-out.
+- Entra ID sign-in and sign-out.
 - Event-driven integration (custom DOM events).
 - Pluggable styling namespace.
 - Build pipeline for Copilot Studio web client assets.
@@ -106,7 +106,7 @@ sequenceDiagram
     participant U as User
     participant LWC as LightningCopilotAuth (LWC)
     participant MSAL as MSAL (Browser)
-    participant AAD as Azure AD (Entra ID)
+    participant EID as Entra ID
     participant DL as Copilot Studio / Direct Line
 
     Note over LWC: Component loads<br/>scripts -> validate embed URL
@@ -120,8 +120,8 @@ sequenceDiagram
         LWC->>MSAL: (wire) get Salesforce user email (loginHint)
         alt Have email & not yet attempted
             LWC->>MSAL: ssoSilent({loginHint, scopes})
-            MSAL->>AAD: /authorize (silent iframe)
-            AAD-->>MSAL: Silent token or error
+            MSAL->>EID: /authorize (silent iframe)
+            EID-->>MSAL: Silent token or error
             alt Silent success
                 MSAL-->>LWC: AuthenticationResult
                 LWC->>LWC: onSignedIn()
@@ -133,7 +133,7 @@ sequenceDiagram
         end
 
         LWC->>MSAL: acquireTokenSilent({scopes, account})
-        MSAL->>AAD: /authorize (silent)
+        MSAL->>EID: /authorize (silent)
         alt Silent success
             MSAL-->>LWC: AuthenticationResult
             LWC->>LWC: onSignedIn()
@@ -141,10 +141,10 @@ sequenceDiagram
             LWC->>U: Show "Sign in" button
             U->>LWC: Click Sign In
             LWC->>MSAL: loginRedirect({scopes, loginHint})
-            MSAL->>AAD: /authorize (interactive + PKCE)
-            AAD-->>MSAL: Redirect with code
-            MSAL->>AAD: /token (exchange + PKCE verifier)
-            AAD-->>MSAL: Access Token
+            MSAL->>EID: /authorize (interactive + PKCE)
+            EID-->>MSAL: Redirect with code
+            MSAL->>EID: /token (exchange + PKCE verifier)
+            EID-->>MSAL: Access Token
             MSAL-->>LWC: AuthenticationResult
             LWC->>LWC: onSignedIn()
         end
@@ -169,8 +169,8 @@ sequenceDiagram
 
     loop Before expiry
         LWC->>MSAL: acquireTokenSilent({scopes, account})
-        MSAL->>AAD: /authorize (silent)
-        AAD-->>MSAL: New accessToken
+        MSAL->>EID: /authorize (silent)
+        EID-->>MSAL: New accessToken
         MSAL-->>LWC: Updated token (refresh)
         Note over LWC: Optionally could renew DL if needed (currently retained)
     end
@@ -178,10 +178,10 @@ sequenceDiagram
     U->>LWC: Logout
     alt Top window
         LWC->>MSAL: logoutRedirect()
-        MSAL->>AAD: /logout
+        MSAL->>EID: /logout
     else In iframe
         LWC->>MSAL: logoutPopup()
-        MSAL->>AAD: /logout (popup)
+        MSAL->>EID: /logout (popup)
     end
     LWC->>LWC: clearSession()
 ```

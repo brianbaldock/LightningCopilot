@@ -213,7 +213,7 @@ export default class LightningCopilotAuth extends LightningElement {
         }
         this.adaptiveCardsLib = this.resolveAdaptiveCardsLib();
         if (!this.adaptiveCardsLib) {
-            this.logDebug('AdaptiveCards library unavailable after load. Ensure the static resource "adaptiveCard" points to adaptivecards.min.js.');
+            this.logDebug('AdaptiveCards library unavailable after load. Ensure the static resource "adaptiveCard" points to adaptivecards.js.');
         }
     }
 
