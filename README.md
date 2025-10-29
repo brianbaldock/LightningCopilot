@@ -28,7 +28,7 @@ LightningCopilot integrates Microsoft Copilot Studio agents into Salesforce via 
 ## !IMPORTANT
 
 This README provides a quick overview.  
-For deeper, step-by-step guidance, visit my blog at [brianbaldock.net](https://blog.brianbaldock.net).
+For deeper, step-by-step guidance, visit my blog at [brianbaldock.net](https://blog.brianbaldock.net/lightningcopilot-salesforce-meets-copilotstudio).
 
 ## Table of contents
 
