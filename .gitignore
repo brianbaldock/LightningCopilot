@@ -113,9 +113,3 @@ lerna-debug.log*
 .eslintcache
 .stylelintcache
 .node_repl_history
-
-############################
-# Optional: Ignore adaptive card minified vendor if re-generated
-############################
-# static-resources-build/adaptiveCard/adaptivecards.min.js
-# static-resources-build/adaptiveCard/adaptivecards.css

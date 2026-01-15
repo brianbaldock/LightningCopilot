@@ -1098,6 +1098,14 @@ export default class LightningCopilotAuth extends LightningElement {
         if (!connection || typeof connection.postActivity !== 'function' || !('activity$' in connection)) {
             return false;
         }
+
+        // Salesforce Locker/LWS may not expose TextDecoderStream (used by the SDK's streaming adapter).
+        // If it's unavailable, avoid adopting the streaming client and fall back to the REST + polling path.
+        if (typeof TextDecoderStream !== 'function') {
+            this.logDebug('Streaming Direct Line disabled (TextDecoderStream unavailable); using REST polling');
+            return false;
+        }
+
         if (sessionToken !== this._dlSessionToken) {
             this.disposeDirectLineClient(connection);
             return true;
@@ -1312,8 +1320,10 @@ export default class LightningCopilotAuth extends LightningElement {
     }
 
     async postActivity(activity) {
-        // Prefer streaming client when available
-        if (this.dlClient && typeof this.dlClient.postActivity === 'function') {
+        // Prefer streaming client when available *and* supported by the runtime.
+        // In Salesforce Lightning (Locker/LWS), TextDecoderStream may be missing.
+        const canUseStreaming = typeof TextDecoderStream === 'function';
+        if (canUseStreaming && this.dlClient && typeof this.dlClient.postActivity === 'function') {
             await new Promise((resolve, reject) => {
                 const sub = this.dlClient.postActivity(activity).subscribe({
                     next: () => {},

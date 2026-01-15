@@ -4,6 +4,7 @@
   "type": "module",
   "dependencies": {
     "@microsoft/agents-copilotstudio-client": "^1.0.15",
+    "@salesforce/cli": "^2.109.6",
     "adaptivecards": "^3.0.5"
   },
   "devDependencies": {
